@@ -147,6 +147,23 @@ function fn(num) {
 
 ----
 
+## Mock 🌰 
+
+一个前端数据管理工具（比如 vuex），其中有一个模块是负责存储的；需要在页面关闭时写入当前数据到 localStorage 保存，应用启动的时候从 localStorage 恢复。现在对这个存储模块进行测试。
+
+Mock localStorage  <!-- .element: class="fragment" -->
+
+----
+
+## Stub 🌰  
+
+这个工具有一个用户管理模块，其中有一个功能是需要完成登录、并且把登录后的用户信息报错在 store 里。
+
+Stub Login API <!-- .element: class="fragment" -->
+
+
+----
+
 ## 集成测试
 
 1. Mock
@@ -163,17 +180,98 @@ Note: 在集成测试中，关心的不是单个单个的函数或者方法，�
 
 ----
 
+## BDD
 
-## Mock 🌰 
+Behavior-Driven Development
 
-一个前端数据管理工具（比如 vuex），其中有一个模块是负责存储的；需要在页面关闭时写入当前数据到 localStorage 保存，应用启动的时候从 localStorage 恢复。现在对这个存储模块进行测试。
 
-Mock localStorage  <!-- .element: class="fragment" -->
+<pre class="fragment"><code class="hljs lang-cucumber" data-trim data-noescape>
+Feature: Is it Friday yet?
+  Everybody wants to know when it's Friday
+
+  Scenario: Sunday isn't Friday
+    Given today is Sunday
+    When I ask whether it's Friday yet
+    Then I should be told "Nope"
+</code></pre>
+
+
+[cucumber-js](https://cucumber.io/docs/guides/10-minute-tutorial/)  <!-- .element: class="fragment" -->
+
+
+Note: BDD 是 TDD 的一个补充，是以用户行为的角度进行的测试。BDD 的意义是以调用方的角度来结构问题的复杂度，来点明待测试的核心。
 
 ----
 
-## Stub 🌰  
+## BDD 🌰 
 
-这个工具有一个用户管理模块，其中有一个功能是需要完成登录、并且把登录的信息报错在 store 里。
+DEMO
 
-Stub Login API <!-- .element: class="fragment" -->
+Note: 这里打开 im-sdk link 层的一个 测试，着重介绍下 describe, it, expect 的 BDD 风格，mock 和 stub。
+
+---
+
+# 番外：组件测试方法
+
+----
+
+## Snapshot
+
+## Shallow Render
+
+Note: UI 组件相对比较特殊，除了内部的逻辑之外，还有 UI/浏览器侧的逻辑需要处理，这里着重介绍一下前端组件相关的一些测试方法。
+
+
+----
+
+
+## Snapshot
+
+某一时刻的组件做一个快照，测试回归的时候比较当前快照是否和之前正确的快照相匹配。
+
+<pre class="fragment"><code class="hljs lang-javascript" data-trim>
+import React from 'react';
+import Link from '../Link.react';
+import renderer from 'react-test-renderer';
+
+it('renders correctly', () => {
+  const tree = renderer
+    .create(<Link page="http://www.facebook.com">Facebook</Link>)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+</code></pre>
+
+Note: 能出现的原因，是 vue 和 react 都有虚拟 dom，是可以脱离浏览器渲染的。最早的 Snapshot 其实是启发自 screenshot testing，是给浏览器截图，然后回归的时候比较两次的截图是否有差异。
+
+----
+
+## Shalow Render
+
+```jsx
+function MyComponent() {
+  return (
+    <div>
+      <span className="heading">Title</span>
+      <Subcomponent foo="bar" />
+    </div>
+  );
+}
+
+```
+
+```jsx
+import ShallowRenderer from 'react-test-renderer/shallow';
+
+// in your test:
+const renderer = new ShallowRenderer();
+renderer.render(<MyComponent />);
+const result = renderer.getRenderOutput();
+
+expect(result.type).toBe('div');
+expect(result.props.children).toEqual([
+  <span className="heading">Title</span>,
+  <Subcomponent foo="bar" />
+]);
+```
+
