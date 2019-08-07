@@ -275,3 +275,114 @@ expect(result.props.children).toEqual([
 ]);
 ```
 
+---
+
+# 功能测试
+
+<h2 class="fragment">从<span class="fragment highlight-red">用户</span>的角度针对软件界面、功能及外部结构进行测试</h2>
+
+
+Note: 功能测试又叫端到端测试（e2e test）、功能测试。在前端领域，主要是模拟用户的实际操作（比如点击、输入、鼠标移动）来进行测试。多以黑盒测试为主。
+
+----
+
+## 两大要素
+
+1. 浏览器
+2. 驱动
+
+----
+
+## 浏览器
+
+1. 真实的浏览器 <!-- .element: class="fragment" -->
+    1. Chrome
+    2. Firefox
+2. 无UI的浏览器（Headless） <!-- .element: class="fragment" -->
+    1. Headless Chrome
+    2. Headless Firefox
+3. 假浏览器 <!-- .element: class="fragment" -->
+    1. PhantomJS
+   
+[[Announcement] Stepping down as maintainer](https://groups.google.com/forum/#!topic/phantomjs/9aI5d-LDuNE) <!-- .element: class="fragment" -->
+
+Note: 路径是 1 -> 3 -> 2，1 2 相对来说支持度比较好，而且比较好测兼容性。phantomjs 虽然运行速度稍快，但是更新跟不上
+
+----
+
+## 驱动
+
+1. WebDriver/Selenium <!-- .element: class="fragment" -->
+2. Devtool Protocol <!-- .element: class="fragment" -->
+    1. Puppeteer
+3. In-Browser Protocol <!-- .element: class="fragment" -->
+    1. Cypress
+
+----
+
+## Selenium
+
+<style>
+ol {padding: 0;}
+table {white-space: nowrap;}
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Pros.</th>
+            <th>Cons.</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Selenium</td>
+            <td>
+                <ol>
+                    <li> 支持度高
+                    <li> 兼容度好
+                </ol>
+            </td>
+            <td>
+                <ol>
+                    <li> 慢
+                </ol>
+            </td>
+        </tr>
+        <tr>
+            <td>Devtools</td>
+            <td>
+                <ol>
+                    <li> 非常快
+                    <li> Node 友好
+                </ol>
+            </td>
+            <td>
+                <ol>
+                    <li> 只支持 Chrome *
+                    <li> 只支持 Node
+                </ol>
+            </td>
+        </tr>
+        <tr>
+            <td>Cypress</td>
+             <td>
+                <ol>
+                    <li> 非常快
+                </ol>
+            </td>
+            <td>
+                <ol>
+                    <li> 受到原生浏览器 API 限制
+                    <li> 支持度一般
+                </ol>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+----
+
+# 🌰 
