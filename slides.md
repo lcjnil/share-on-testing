@@ -36,12 +36,16 @@ Note: 这里先从一个简单的函数开始写起，然后讲下测试可以�
 
 ----
 
+## When fix bug..
+
+![bug-reopen](./assets/2.gif)
+
+----
+
 ## 自动化测试的好处
 
 1. 提前发现问题
 2. 上线更有底气
-
-----
 
 ---
 
@@ -56,7 +60,7 @@ Note: 这里先从一个简单的函数开始写起，然后讲下测试可以�
 3. 功能测试（Function Test） <br/><small class="fragment">从用户的角度针对软件界面、功能及外部结构进行测试</small> 
 <br/><small class="fragment">Feature/E2E test</small> 
 
-Note: 针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。程序单元是应用的最小可测试部件
+Note: 这里可以循序渐进的讲一下，可以由浅入深的来测试。
 
 ----
 
@@ -72,17 +76,16 @@ Note: 针对程序模块（软件设计的最小单位）来进行正确性检�
 
 1. Test Runner <!-- .element: class="fragment" -->
     1. Jasmine
-    2. Ava
-    3. Tape
-    4. ...
+    2. Mocha
+    3. Ava
+    4. Tape
+    5. ...
 2. Assertion <!-- .element: class="fragment" -->
     1. Chai
     2. Should.js
 
-<!--
-3. Mock & Stub & Fixture
-    1. Sinon.js 
--->
+
+Note: 所有测试都有这两个组成部分，一个是测试的 Runner，一个做断言的 Assertion。Test Runner 是一组工具帮助我们把测试跑起来。而 Assertion 是一组函数辅助我们做一些断言。
 
 
 ----
@@ -106,11 +109,10 @@ A fizzbuzz problem
 
 ```javascript
 test("fizzbuzz", () => {
-    expect(fn(3)).toBe('Fizz')  
-    expect(fn(5)).toBe('Buzz')
-    expect(fn(15)).toBe(FizzBuzz)
-    ...
-})
+  expect(fn(3)).toBe("Fizz");
+  expect(fn(5)).toBe("Buzz");
+  expect(fn(15)).toBe("FizzBuzz");
+});
 ```
 
 ------
@@ -120,6 +122,9 @@ function fn(num) {
     // some code about fizzbuzz
 }
 ```
+
+[tdd-test](https://codesandbox.io/s/jest-test-bjexn) <!-- .element: class="fragment" -->
+
 
 ----
 
@@ -144,6 +149,8 @@ function fn(num) {
 # 集成测试
 
 <h2 class="fragment">将程序模块组装起来，对系统的<span class="fragment highlight-red">接口</span>进行正确性检验的测试工作</h2>
+
+Note: 集成测试除了 Test Runner  和 A 还有一些重要的组成部分，下面就来分场景介绍下。
 
 ----
 
@@ -176,14 +183,13 @@ Stub Login API <!-- .element: class="fragment" -->
 
 Note: 在集成测试中，关心的不是单个单个的函数或者方法，而是这些函数或者方法组合成的一个整体。在测试某一个整体的行为的时候，经常需要有其他的模块或者方法干扰该模块的测试，这个时候就需要通过 mock 或 stub 来减少这些外部的依赖，优化我们的测试。
 
-
-
 ----
 
 ## BDD
 
 Behavior-Driven Development
 
+🌰 测试一个函数，返回某一天是否是星期五 <!-- .element: class="fragment" --> 
 
 <pre class="fragment"><code class="hljs lang-cucumber" data-trim data-noescape>
 Feature: Is it Friday yet?
@@ -242,6 +248,8 @@ it('renders correctly', () => {
 });
 </code></pre>
 
+[react-snapshot-testing](https://codesandbox.io/s/sandbox-snap-test-tppbw) <!-- .element: class="fragment" -->
+
 Note: 能出现的原因，是 vue 和 react 都有虚拟 dom，是可以脱离浏览器渲染的。最早的 Snapshot 其实是启发自 screenshot testing，是给浏览器截图，然后回归的时候比较两次的截图是否有差异。
 
 ----
@@ -274,6 +282,8 @@ expect(result.props.children).toEqual([
   <Subcomponent foo="bar" />
 ]);
 ```
+
+[react-shallow-render-testing](https://codesandbox.io/s/enzyme-jest-example-v5nt4) <!-- .element: class="fragment" -->
 
 ---
 
@@ -320,7 +330,7 @@ Note: 路径是 1 -> 3 -> 2，1 2 相对来说支持度比较好，而且比较�
 
 ----
 
-## Selenium
+## 对比 
 
 <style>
 ol {padding: 0;}
@@ -337,7 +347,7 @@ table {white-space: nowrap;}
     </thead>
     <tbody>
         <tr>
-            <td>Selenium</td>
+            <td>Webdriver</td>
             <td>
                 <ol>
                     <li> 支持度高
@@ -385,4 +395,30 @@ table {white-space: nowrap;}
 
 ----
 
-# 🌰 
+## 🌰 
+
+Note: 这里演示 nightwatch, puppeteer, cypress
+
+----
+
+## Recorder
+
+1. [Selenium IDE](https://www.seleniumhq.org/selenium-ide/)
+2. [Puppeteer Recorder](https://github.com/checkly/puppeteer-recorder)
+3. [Cypress Dashboard](https://docs.cypress.io/dashboard/overview/runs-dashboard.html)
+
+
+---
+
+# Conclusion
+
+1. 测试的种类
+   <br>单元测试、集成测试、功能测试
+2. 测试的工具
+   <br>Test Runner、Assertion、Mock、Stub...
+3. 测试的风格
+   <br>TDD、BDD
+
+----
+
+# Q & A
