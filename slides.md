@@ -87,7 +87,6 @@ Note: 这里可以循序渐进的讲一下，可以由浅入深的来测试。
 
 Note: 所有测试都有这两个组成部分，一个是测试的 Runner，一个做断言的 Assertion。Test Runner 是一组工具帮助我们把测试跑起来。而 Assertion 是一组函数辅助我们做一些断言。
 
-
 ----
 
 ## TDD
@@ -150,7 +149,7 @@ function fn(num) {
 
 <h2 class="fragment">将程序模块组装起来，对系统的<span class="fragment highlight-red">接口</span>进行正确性检验的测试工作</h2>
 
-Note: 集成测试除了 Test Runner  和 A 还有一些重要的组成部分，下面就来分场景介绍下。
+Note: 集成测试除了 Test Runner 和 A 还有一些重要的组成部分，下面就来分场景介绍下。
 
 ----
 
@@ -214,6 +213,13 @@ Note: BDD 是 TDD 的一个补充，是以用户行为的角度进行的测试�
 DEMO
 
 Note: 这里打开 im-sdk link 层的一个 测试，着重介绍下 describe, it, expect 的 BDD 风格，mock 和 stub。
+
+
+----
+
+## 安利：Jest
+
+![jest](./assets/jest.png)
 
 ---
 
